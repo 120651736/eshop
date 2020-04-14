@@ -10,8 +10,10 @@
  */
 package com.weeked.eshop.auth.domain;
 
+import com.weeked.eshop.common.util.BeanCopierUtils;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 
@@ -25,6 +27,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
+@Slf4j
 public class PriorityDTO {
 
     /**
@@ -59,5 +62,24 @@ public class PriorityDTO {
      * 权限的修改时间
      */
     private Date gmtModified;
+
+    /**
+     * 克隆方法
+     * @param clazz 目标Class对象
+     * @return 克隆后的对象
+     */
+    public <T> T clone(Class<T> clazz) {
+        T target = null;
+
+        try {
+            target = clazz.newInstance();
+        } catch (Exception e) {
+            log.error("error", e);
+        }
+
+        BeanCopierUtils.copyProperties(this, target);
+
+        return target;
+    }
 
 }

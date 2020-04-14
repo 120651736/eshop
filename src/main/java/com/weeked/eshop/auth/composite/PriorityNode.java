@@ -1,21 +1,22 @@
 /**
  * Copyright (C), 2019-2020
- * FileName: PriorityDO
+ * FileName: PriorityNode
  * Author:   xiaoguang
- * Date:     2020/4/14 2:49 下午
+ * Date:     2020/4/14 4:23 下午
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package com.weeked.eshop.auth.domain;
+package com.weeked.eshop.auth.composite;
 
-import com.weeked.eshop.common.util.BeanCopierUtils;
+import com.weeked.eshop.auth.visitor.PriorityNodeVisitor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -27,8 +28,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
-@Slf4j
-public class PriorityVO {
+public class PriorityNode {
 
     /**
      * id
@@ -62,23 +62,17 @@ public class PriorityVO {
      * 权限的修改时间
      */
     private Date gmtModified;
+    /**
+     * 子权限节点
+     */
+    private List<PriorityNode> children = new ArrayList<PriorityNode>();
 
     /**
-     * 克隆方法
-     * @param clazz 目标Class对象
-     * @return 克隆后的对象
+     * 接收一个权限树访问者
+     * @param visitor 权限树访问者
      */
-    public <T> T clone(Class<T> clazz) {
-        T target = null;
-
-        try {
-            target = clazz.newInstance();
-        } catch (Exception e) {
-            log.error("error", e);
-        }
-
-        BeanCopierUtils.copyProperties(this, target);
-
-        return target;
+    public void accept(PriorityNodeVisitor visitor) {
+        visitor.visit(this);
     }
+
 }
