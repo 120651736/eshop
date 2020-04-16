@@ -111,7 +111,7 @@ public interface PriorityMapper {
             + ") "
             + "VALUES("
             + "#{code}, "
-            + "#{url), "
+            + "#{url}, "
             + "#{priorityComment}, "
             + "#{priorityType}, "
             + "#{parentId}, "
