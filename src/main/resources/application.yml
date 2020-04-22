@@ -20,3 +20,23 @@ spring:
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+  redis:
+    database: 0
+    #   host: 129.28.150.115
+    #   port: 6379
+    #   password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000
+    cluster:
+      nodes:
+        - 116.198.160.80:7000
+        - 116.198.160.80:7001
+        - 116.198.160.80:7002
+        - 116.198.160.80:7003
+        - 116.198.160.80:7004
+        - 116.198.160.80:7005
